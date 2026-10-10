@@ -1,0 +1,15 @@
+{
+  "name": "torbox-courses-addon",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "inspect": "node --env-file=.env src/inspect.js"
+  },
+  "description": "Addon Stremio/Nuvio: cursos no TorBox como séries (módulos = temporadas)",
+  "dependencies": {
+    "express": "^5.3.0",
+    "stremio-addon-sdk": "^1.6.10"
+  },
+  "type": "module",
+  "private": true
+}
