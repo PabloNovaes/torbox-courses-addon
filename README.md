@@ -22,6 +22,14 @@ Addon no protocolo Stremio (funciona no Nuvio) que mostra os cursos salvos no se
    ```
 4. Suba o addon: `npm start`
 
+## Imagens (capa e fundo)
+
+Coloque as imagens em `public/assets/<id-da-série>/` com os nomes `poster.jpg` (capa, vertical 2:3)
+e `background.jpg` (fundo, horizontal 16:9). O id aparece no `npm run inspect`
+(ex.: `tbcourse:curso-de-macrame` → `public/assets/curso-de-macrame/`).
+
+Depois rode `npm run build` (gera `src/artwork-manifest.json`) e faça commit. Na Vercel o build roda sozinho.
+
 ## Instalar no Nuvio
 
 O Nuvio (celular/TV) precisa acessar o addon por HTTPS. O jeito mais simples é um túnel do Cloudflare:

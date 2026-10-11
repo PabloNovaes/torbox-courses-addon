@@ -5,7 +5,7 @@
 import express from 'express';
 import sdk from 'stremio-addon-sdk';
 import { createAddon } from './addon.js';
-import { ASSETS_DIR, BASE_PLACEHOLDER } from './artwork.js';
+import { PUBLIC_DIR, BASE_PLACEHOLDER } from './artwork.js';
 
 // 7000 e 5000 ficam ocupadas no macOS pelo Receptor AirPlay
 const { TORBOX_API_KEY, ADDON_SECRET, PORT = 7700 } = process.env;
@@ -29,9 +29,9 @@ app.use(base, (req, res, next) => {
   });
   next();
 });
-// Troca o marcador das URLs de imagem pelo endereço desta requisição (local ou túnel https)
+// Troca o marcador das URLs de imagem pela origem desta requisição (local, rede, Vercel...)
 app.use(base, (req, res, next) => {
-  const origin = `${req.protocol}://${req.get('host')}${base}`;
+  const origin = `${req.protocol}://${req.get('host')}`;
   const end = res.end.bind(res);
   res.end = (chunk, ...rest) => {
     if (chunk != null && /json/.test(res.getHeader('Content-Type') ?? '')) {
@@ -42,7 +42,8 @@ app.use(base, (req, res, next) => {
   };
   next();
 });
-app.use(`${base}/assets`, express.static(ASSETS_DIR, { maxAge: '7d' }));
+// Imagens: na Vercel quem serve é o CDN (pasta public/); localmente, o próprio Express
+app.use(express.static(PUBLIC_DIR, { maxAge: '7d' }));
 app.use(base, sdk.getRouter(createAddon(TORBOX_API_KEY)));
 app.get('/', (_req, res) => res.type('text').send('ok'));
 

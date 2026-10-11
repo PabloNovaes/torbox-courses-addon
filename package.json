@@ -2,6 +2,7 @@
   "name": "torbox-courses-addon",
   "version": "1.0.0",
   "scripts": {
+    "build": "node scripts/build-artwork.js",
     "start": "node --env-file=.env src/server.js",
     "inspect": "node --env-file=.env src/inspect.js"
   },
